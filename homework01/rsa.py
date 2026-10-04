@@ -12,14 +12,12 @@ def is_prime(n: int) -> bool:
     >>> is_prime(8)
     False
     """
-    a = 0
-    if n == 2:
-        return True
-    else:
-        for i in range(2, n-1):
-            if n!= 2 and n % i == 0:
-                a += 1
-        return a < 1
+    if n % 2 == 0 and n != 2:
+        return False
+    for i in range(3, int(n ** 0.5) + 1, 2):
+        if n % i == 0:
+            return False
+    return True
 
 
 def gcd(a: int, b: int) -> int:
@@ -45,8 +43,11 @@ def multiplicative_inverse(e: int, phi: int) -> int:
     >>> multiplicative_inverse(7, 40)
     23
     """
-    # PUT YOUR CODE HERE
-    pass
+    d = 1
+    for i in range(2, phi + 1):
+        if ((i*e) - 1) % phi == 0:
+            d = i
+    return d
 
 
 def generate_keypair(p: int, q: int) -> tp.Tuple[tp.Tuple[int, int], tp.Tuple[int, int]]:
