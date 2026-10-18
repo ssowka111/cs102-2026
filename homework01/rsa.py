@@ -1,7 +1,7 @@
+"""RSA encryption."""
+
 import random
 import typing as tp
-
-"""RSA encryption."""
 
 
 def is_prime(n: int) -> bool:
