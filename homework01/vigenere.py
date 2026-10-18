@@ -10,22 +10,22 @@ def encrypt_vigenere(plaintext: str, keyword: str) -> str:
     """
     ciphertext = ""
     key = []
-    for i in keyword:
-        if i.isupper():
-            key.append((ord(i) - ord('A')) % 26 + ord('A'))
-        elif i.islower():
-            key.append((ord(i) - ord('a')) % 26 + ord('a'))
-    b = 0
-    for a in range(len(plaintext)):
-        if key[b] == ord("A") or key[b] == ord("a"):
-            ciphertext += plaintext[a]
-        elif plaintext[a].isupper():
-            ciphertext += chr((ord(plaintext[a]) + key[b]) % 26 + ord('A'))
-        elif plaintext[a].islower():
-            ciphertext += chr((ord(plaintext[a]) + key[b]) % 26 + ord('a'))
-        b += 1
-        if b == len(key):
-            b = 0
+    for letter in keyword:
+        if letter.isupper():
+            key.append((ord(letter) - ord('A')) % 26 + ord('A'))
+        elif letter.islower():
+            key.append((ord(letter) - ord('a')) % 26 + ord('a'))
+    key_index = 0
+    for letter_index in range(len(plaintext)):
+        if key[key_index] == ord("A") or key[key_index] == ord("a"):
+            ciphertext += plaintext[letter_index]
+        elif plaintext[letter_index].isupper():
+            ciphertext += chr((ord(plaintext[letter_index]) + key[key_index]) % 26 + ord('A'))
+        elif plaintext[letter_index].islower():
+            ciphertext += chr((ord(plaintext[letter_index]) + key[key_index]) % 26 + ord('a'))
+        key_index += 1
+        if key_index == len(key):
+            key_index = 0
     return ciphertext
 
 def decrypt_vigenere(ciphertext: str, keyword: str) -> str:
@@ -40,20 +40,20 @@ def decrypt_vigenere(ciphertext: str, keyword: str) -> str:
     """
     plaintext = ""
     key = []
-    for i in keyword:
-        if i.isupper():
-            key.append((ord(i) - ord('A')) % 26 + ord('A'))
-        elif i.islower():
-            key.append((ord(i) - ord('a')) % 26 + ord('a'))
-    b = 0
-    for a in range(len(ciphertext)):
-        if key[b] == ord("A") or key[b] == ord("a"):
-            plaintext += ciphertext[a]
-        elif ciphertext[a].isupper():
-            plaintext += chr((ord(ciphertext[a]) - key[b]) % 26 + ord('A') )
-        elif ciphertext[a].islower():
-            plaintext += chr((ord(ciphertext[a]) - key[b]) % 26 + ord('a') )
-        b += 1
-        if b == len(key):
-            b = 0
+    for letter in keyword:
+        if letter.isupper():
+            key.append((ord(letter) - ord('A')) % 26 + ord('A'))
+        elif letter.islower():
+            key.append((ord(letter) - ord('a')) % 26 + ord('a'))
+    key_index = 0
+    for letter_index in range(len(ciphertext)):
+        if key[key_index] == ord("A") or key[key_index] == ord("a"):
+            plaintext += ciphertext[letter_index]
+        elif ciphertext[letter_index].isupper():
+            plaintext += chr((ord(ciphertext[letter_index]) - key[key_index]) % 26 + ord('A') )
+        elif ciphertext[letter_index].islower():
+            plaintext += chr((ord(ciphertext[letter_index]) - key[key_index]) % 26 + ord('a') )
+        key_index += 1
+        if key_index == len(key):
+            key_index = 0
     return plaintext
