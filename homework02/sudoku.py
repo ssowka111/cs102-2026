@@ -83,7 +83,15 @@ def get_block(grid: tp.List[tp.List[str]], pos: tp.Tuple[int, int]) -> tp.List[s
     >>> get_block(grid, (8, 8))
     ['2', '8', '.', '.', '.', '5', '.', '7', '9']
     """
-    pass
+    #По введенной позиции определяем координаты, с которых начинается искомый квадрат
+    start_row = (pos[0] // 3) * 3
+    start_col = (pos[1] // 3) * 3
+
+    block = []
+    for row in range(start_row, start_row + 3):
+        for col in range(start_col, start_col + 3):
+            block.append(grid[row][col])
+    return block
 
 
 def find_empty_positions(grid: tp.List[tp.List[str]]) -> tp.Optional[tp.Tuple[int, int]]:
