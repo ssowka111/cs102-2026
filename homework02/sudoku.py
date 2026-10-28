@@ -1,5 +1,6 @@
 import pathlib
 import typing as tp
+import random
 
 T = tp.TypeVar("T")
 
@@ -83,7 +84,7 @@ def get_block(grid: tp.List[tp.List[str]], pos: tp.Tuple[int, int]) -> tp.List[s
     >>> get_block(grid, (8, 8))
     ['2', '8', '.', '.', '.', '5', '.', '7', '9']
     """
-    #По введенной позиции определяем координаты, с которых начинается искомый квадрат
+    # По введенной позиции определяем координаты, с которых начинается искомый квадрат
     start_row = (pos[0] // 3) * 3
     start_col = (pos[1] // 3) * 3
 
@@ -256,7 +257,26 @@ def generate_sudoku(N: int) -> tp.List[tp.List[str]]:
     >>> check_solution(solution)
     True
     """
-    pass
+    grid = [["."] * 9 for _ in range(9)]
+
+    # Случайно заполняем три диагональных блока
+    for start in (0, 3, 6):
+        digits = list("123456789")
+        random.shuffle(digits)
+        for i in range(3):
+            for j in range(3):
+                grid[start + i][start + j] = digits[i * 3 + j]
+
+    # Достраиваем до полного решения
+    grid = solve(grid)
+
+    # Стираем лишние клетки
+    N = max(0, min(N, 81))
+    positions = [(row, col) for row in range(9) for col in range(9)]
+    for row, col in random.sample(positions, 81 - N):
+        grid[row][col] = "."
+
+    return grid
 
 
 if __name__ == "__main__":
